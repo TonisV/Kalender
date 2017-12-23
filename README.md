@@ -1,5 +1,6 @@
 # Kalender
-**Kirjeldus** 
+**Kirjeldus**
+
 Tegemist on kalendri mooduliga, mis on tehtud "Minu Ettevõtte" projekti tarbeks (kursus kasutajaliidese disain). 
 
 Audentitud kasutajad saavad kalendris teha järgmisi muudatusi.
