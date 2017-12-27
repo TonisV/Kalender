@@ -4,7 +4,7 @@
   "description": "Calendar module for \"Minu Ettevõtte\" project.",
   "main": "app.js",
   "scripts": {
-    "test": "node app"
+    "test": "node server"
   },
   "repository": {
     "type": "git",
@@ -19,20 +19,14 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
-    "bootstrap": "^4.0.0-beta.2",
     "connect-flash": "^0.1.1",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
-    "font-awesome": "^4.7.0",
-    "fullcalendar": "^3.8.0",
-    "jquery": "^3.2.1",
+    "express-validator": "^4.3.0",
     "mongoose": "^4.13.7",
-    "pace-progress": "^1.0.2",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "popper.js": "^1.12.6",
-    "simple-line-icons": "^2.4.1"
+    "passport-local": "^1.0.0"
   }
 }

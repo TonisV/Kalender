@@ -47,7 +47,8 @@ $(document).ready(function() {
                 title          : 'ABD OÜ kohtumine',
                 start          : new Date(y, m, 1),
                 backgroundColor: '#f56954', //red
-                borderColor    : '#f56954' //red
+                borderColor    : '#f56954', //red
+                editable: true
             },
             {
                 title          : 'Too poest naelu',

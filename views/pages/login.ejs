@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body class="app login-page flex-row align-items-center">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="row d-flex justify-content-center p-4">
+                <div class="col-6"><img class="img-fluid" alt="Minu Ettevõte" src="/img/logo-l.png"></div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1" role="tabpanel">
+                    <div class="card-body">
+                        <%- messages('partials/message', locals) %>
+                        <h1>Logi sisse</h1>
+                        <p class="text-muted">Logi sisse kasutajatunnusega</p>
+                        <form method="post">
+                            <div class="input-group mb-3">
+                                <span class="input-group-addon"><i class="icon-user"></i></span>
+                                <input type="text" name="username" class="form-control" placeholder="Kasutajatunnus">
+                            </div>
+                            <div class="input-group mb-4">
+                                <span class="input-group-addon"><i class="icon-lock"></i></span>
+                                <input type="password" name="password" class="form-control" placeholder="Salasõna">
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary px-4">Sisene</button>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <button class="btn btn-link px-0">Unustasid Parooli?</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                Sul ei ole veel Minu Ettevõtte kontot? <a href="/register">Loo see siin.</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap and necessary plugins -->
+<% include ../partials/bootstrap.ejs %>
+
+</body>
+</html>
