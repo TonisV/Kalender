@@ -47,7 +47,6 @@ $(document).ready(function() {
                 title          : 'ABD OÜ kohtumine',
                 start          : new Date(y, m, 1),
                 backgroundColor: '#f56954', //red
-                borderColor    : '#f56954', //red
                 editable: true
             },
             {
@@ -55,7 +54,6 @@ $(document).ready(function() {
                 start          : new Date(y, m, d - 5),
                 end            : new Date(y, m, d - 2),
                 backgroundColor: '#f39c12', //yellow
-                borderColor    : '#f39c12' //yellow
             },
             {
                 title          : 'Kohtumine Kati',

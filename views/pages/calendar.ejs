@@ -6,6 +6,7 @@
 
     <!-- Custom style for views -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/fullcalendar.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
 </head>
 
@@ -40,29 +41,33 @@
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-header font-weight-bold">
-                            <i class="icon-event"></i> Sündmused
+                            <i class="icon-event"></i> Sündmused, mis ootavad kalendrisse lisamist
                         </div>
                         <div class="card-body">
+                            <p>Sündmusi saab kalendrisse lisada neid sinna lohistades.</p>
+                            <hr>
                             <div id="external-events">
                                 <div class="fc-event btn mb-1">Ristiku 8 - katusekivid</div>
                                 <div class="fc-event btn mb-1 bg-success">Hinnapakkumine Meister OÜ-le</div>
                                 <div class="fc-event btn mb-1 bg-warning">Katuse ehitus - Karu 15</div>
                                 <div class="fc-event btn mb-1 bg-info">Arve - Uuno Kask</div>
                                 <div class="fc-event btn mb-1 bg-danger">Materjali vedu</div>
-                                <div class="checkbox mt-1">
-                                    <label for="drop-remove">
-                                        <input type="checkbox" id="drop-remove">
-                                        Eemalda sündmus nimekirjast peale kalendrisse lisamist
-                                    </label>
-                                </div>
+                            </div>
+                            <hr>
+                            <div class="checkbox mt-1">
+                                <label for="drop-remove">
+                                    <input type="checkbox" id="drop-remove">
+                                    Eemalda sündmus nimekirjast peale kalendrisse lisamist
+                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-header font-weight-bold">
-                            <i class="icon-plus"></i> Lisa uus sündmus
+                            <i class="icon-plus"></i> Loo uus sündmus
                         </div>
                         <div class="card-body">
+                            <p class="mb-1">Vali sündmusele värv</p>
                             <ul class="fc-color-picker" id="color-chooser">
                                 <li><a class="text-aqua" href="#"><i class="fa fa-square"></i></a></li>
                                 <li><a class="text-blue" href="#"><i class="fa fa-square"></i></a></li>
@@ -81,7 +86,7 @@
                             <div class="input-group pt-1">
                                 <input id="new-event" type="text" class="form-control" placeholder="Sündmuse kirjeldus">
                                 <div class="input-group-btn">
-                                    <button id="add-new-event" type="button" class="btn btn-primary">Lisa</button>
+                                    <button id="add-new-event" type="button" class="btn btn-primary"><i class="icon-plus"></i> Lisa</button>
                                 </div>
                             </div>
 
