@@ -1,9 +1,3 @@
-//Date for the calendar events (dummy data)
-var date = new Date();
-var d    = date.getDate(),
-    m    = date.getMonth(),
-    y    = date.getFullYear();
-
 $(document).ready(function() {
 
 
@@ -41,52 +35,10 @@ $(document).ready(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-        //Random default events
-        events    : [
-            {
-                title          : 'ABD OÜ kohtumine',
-                start          : new Date(y, m, 1),
-                backgroundColor: '#f56954', //red
-                editable: true
-            },
-            {
-                title          : 'Too poest naelu',
-                start          : new Date(y, m, d - 5),
-                end            : new Date(y, m, d - 2),
-                backgroundColor: '#f39c12', //yellow
-            },
-            {
-                title          : 'Kohtumine Kati',
-                start          : new Date(y, m, d, 10, 30),
-                allDay         : false,
-                backgroundColor: '#0073b7', //Blue
-                borderColor    : '#0073b7' //Blue
-            },
-            {
-                title          : 'Lõuna Jüri',
-                start          : new Date(y, m, d, 12, 0),
-                end            : new Date(y, m, d, 14, 0),
-                allDay         : false,
-                backgroundColor: '#00c0ef', //Info (aqua)
-                borderColor    : '#00c0ef' //Info (aqua)
-            },
-            {
-                title          : 'Koristus',
-                start          : new Date(y, m, d + 1, 19, 0),
-                end            : new Date(y, m, d + 1, 22, 30),
-                allDay         : false,
-                backgroundColor: '#00a65a', //Success (green)
-                borderColor    : '#00a65a' //Success (green)
-            },
-            {
-                title          : 'Maksa arve',
-                start          : new Date(y, m, 28),
-                end            : new Date(y, m, 29),
-                url            : 'http://google.com/',
-                backgroundColor: '#3c8dbc', //Primary (light-blue)
-                borderColor    : '#3c8dbc' //Primary (light-blue)
-            }
-        ],
+
+        //Get events from feed
+        events : '/calendar/events',
+
         /*
         eventClick: function(event, element) {
 

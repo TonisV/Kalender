@@ -8,18 +8,30 @@ const Event = require('../models/event');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
-
+// Main Calendar page
 router.get('/', ensureAuthenticated, (req, res) => {
     res.render('pages/calendar');
 });
+
+// Events feed by user id
+router.get('/events', ensureAuthenticated, (req, res) => {
+    Event.find({owner:req.user._id}).exec( (err, events) => {
+        if(err) {
+            console.log(err);
+        }else{
+            res.json(events);
+        }
+    });
+});
+
 /*
-// Uue sündmuse lisamine
+// Insert new event
 router.get('/calendar', (req, res) => {
-    let title   = ;
-    let start   = ;
-    let end     = ;
-    let allDay  = ;
-    let bgColor = ;
+    let title   = title;
+    let start   = start;
+    let end     = end;
+    let allDay  = allDay;
+    let bgColor = backgroundColor;
 
     let newEvent = new Event({
         title   : title,
@@ -27,34 +39,18 @@ router.get('/calendar', (req, res) => {
         end     : end,
         allDay  : allDay,
         bgColor : bgColor,
-        owner   : user._id
+        owner   : req.user._id
     });
 
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(newUser.password, salt, function(err, hash) {
-            if(err) {
-                console.log(err);
-                return res.redirect('/register');
-            }
-
-            newUser.password = hash;
-            newUser.save(function(err) {
-                if(err) {
-                    console.log(err);
-                    return res.redirect('/register');
-                }
-                return res.redirect('/login');
-            })
-        });
-    });
 });
 */
-// Kontroll kas tegemist on sisseloginud kasutajaga
+
+// Check if it's a logged-in user
 function ensureAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
         return next();
     }else{
-        req.flash('danger', 'Please login');
+        req.flash('danger', 'Palun logi sisse');
         return res.redirect('/login');
     }
 }
