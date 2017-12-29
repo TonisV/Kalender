@@ -7,12 +7,12 @@ $(document).ready(function() {
         ele.each(function () {
             // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
             // it doesn't need to have a start or end
-            var eventObject = {
+            let eventObject = {
                 title: $.trim($(this).text()) // use the element's text as the event title
-            }
+            };
 
             // store the Event Object in the DOM element so we can get to it later
-            $(this).data('eventObject', eventObject)
+            $(this).data('eventObject', eventObject);
 
             // make the event draggable using jQuery UI
             $(this).draggable({
@@ -38,44 +38,35 @@ $(document).ready(function() {
 
         //Get events from feed
         events : '/calendar/events',
-
-        /*
-        eventClick: function(event, element) {
-
-            event.title = "CLICKED!";
-
-            $('#calendar').fullCalendar('updateEvent', event);
-
-        },*/
         editable: true,
         droppable: true, // this allows things to be dropped onto the calendar
         drop: function(date, allDay) {
 
             // retrieve the dropped element's stored Event Object
-            var originalEventObject = $(this).data('eventObject')
+            let originalEventObject = $(this).data('eventObject');
 
             // we need to copy it, so that multiple events don't have a reference to the same object
-            var copiedEventObject = $.extend({}, originalEventObject)
+            let copiedEventObject = $.extend({}, originalEventObject);
+            console.log(copiedEventObject);
 
             // assign it the date that was reported
-            copiedEventObject.start           = date
-            copiedEventObject.allDay          = allDay
-            copiedEventObject.backgroundColor = $(this).css('background-color')
-            copiedEventObject.borderColor     = $(this).css('border-color')
+            copiedEventObject.start           = date;
+            copiedEventObject.allDay          = allDay;
+            copiedEventObject.backgroundColor = $(this).css('background-color');
+
+            saveEvent(copiedEventObject);
 
             // render the event on the calendar
             // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
-            // is the "remove after drop" checkbox checked?
-            if ($('#drop-remove').is(':checked')) {
-                // if so, remove the element from the "Draggable Events" list
-                $(this).remove();
-            }
+            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+            // Remove the element from the "Draggable Events" list
+            $(this).remove();
+
         }
     });
 
     /* ADDING EVENTS */
-    var currColor = '#3c8dbc';//Red by default
+    let currColor = '#3c8dbc';//Blue by default
     $('#color-chooser > li > a').click(function (e) {
         e.preventDefault();
         //Save color
@@ -87,13 +78,13 @@ $(document).ready(function() {
     $('#add-new-event').click(function (e) {
         e.preventDefault();
         //Get value and make sure it is not null
-        var val = $('#new-event').val();
+        let val = $('#new-event').val();
         if (val.length == 0) {
             return
         }
 
         //Create events
-        var event = $('<div />');
+        let event = $('<div />');
         event.css({
             'background-color': currColor
         }).addClass('fc-event btn mb-1');
@@ -104,8 +95,27 @@ $(document).ready(function() {
         init_events(event);
 
         //Remove event from text input
-        $('#new-event').val('')
+        $('#new-event').val('');
     });
+
+    function saveEvent(event){
+        $.post(
+            'calendar/add',
+            {
+                title   : event.title,
+                start   : event.start.toISOString(),
+                bgColor : event.backgroundColor
+            }
+        );
+    }
+
+    function updateEvent() {
+
+    }
+
+    function deleteEvent() {
+
+    }
 
 
 });

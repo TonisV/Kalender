@@ -8,6 +8,7 @@ const Event = require('../models/event');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
+
 // Main Calendar page
 router.get('/', ensureAuthenticated, (req, res) => {
     res.render('pages/calendar');
@@ -24,24 +25,50 @@ router.get('/events', ensureAuthenticated, (req, res) => {
     });
 });
 
+// Add event
+router.post('/add', ensureAuthenticated, (req, res) => {
+
+    let title   = req.body.title;
+    let start   = req.body.start;
+    let bgColor = req.body.bgColor;
+
+    let newEvent = new Event({
+        title   : title,
+        start   : new Date(start),
+        end     : new Date(start),
+        allDay  : true,
+        bgColor : bgColor,
+        owner   : req.user._id
+    });
+
+    newEvent.save(function(err) {
+        if(err) {
+            console.log(err);
+            res.json('error');
+        }
+        res.json('success');
+    })
+
+});
+
 /*
-// Insert new event
-router.get('/calendar', (req, res) => {
+// Update event
+router.get('/update', ensureAuthenticated, (req, res) => {
     let title   = title;
     let start   = start;
     let end     = end;
-    let allDay  = allDay;
-    let bgColor = backgroundColor;
 
     let newEvent = new Event({
         title   : title,
         start   : start,
         end     : end,
-        allDay  : allDay,
-        bgColor : bgColor,
-        owner   : req.user._id
     });
 
+});
+
+// Delete event
+router.get('/delete', ensureAuthenticated, (req, res) => {
+    let id = id;
 });
 */
 
