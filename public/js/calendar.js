@@ -55,7 +55,7 @@ $(document).ready(function() {
             copiedEventObject.backgroundColor = $(this).css('background-color');
 
             // Save event to db
-            saveEvent(copiedEventObject);
+            addEvent(copiedEventObject);
 
             // render the event on the calendar
             // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
@@ -94,7 +94,7 @@ $(document).ready(function() {
                 // Save new event background to event obj
                 calEvent.backgroundColor = $('#change-event-color').css('background-color');
                 // Save new event to db
-                addEvent(calEvent);
+                updateEvent(calEvent);
                 // Update event obj to show current values
                 $('#calendar').fullCalendar( 'updateEvent', calEvent );
                 // Remove a previously-attached event handler from the elements

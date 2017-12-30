@@ -8,7 +8,9 @@ const loginRoutes    = require('./controllers/login');
 const calendarRoutes = require('./controllers/calendar');
 
 // Db connection
-mongoose.connect('mongodb://localhost/calendar');
+mongoose.connect('mongodb://localhost/calendar', {
+    useMongoClient: true,
+});
 let db = mongoose.connection;
 
 // Db connection check
