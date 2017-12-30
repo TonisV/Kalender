@@ -144,3 +144,13 @@ $(document).on('click', '.card-actions a', function(e){
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+function messageBox(classType, message) {
+    let x = document.getElementById("message-box");
+    x.className = "show " + classType;
+    x.innerHTML = '<p>'+message+'</p>';
+    setTimeout(function(){
+        x.className = x.className.replace("show " + classType, "");
+        x.innerHTML = '';
+    }, 3000);
+}

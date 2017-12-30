@@ -336,7 +336,7 @@
     padding: 10px;
 }
 
-#snackbar {
+#message-box {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
@@ -352,7 +352,12 @@
     border: 1px solid #78a73a;
 }
 
-#snackbar.show {
+#message-box p {
+    padding: 0;
+    margin: 0;
+}
+
+#message-box.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;

@@ -12,11 +12,11 @@ const eventSchema = mongoose.Schema({
 eventSchema.set('toJSON', {
     transform: function(doc, ret, options) {
         let retJson = {
-            id: ret._id,
-            title: ret.title,
-            start: ret.start,
-            end: ret.end,
-            allDay: ret.allDay,
+            id     : ret._id,
+            title  : ret.title,
+            start  : ret.start,
+            end    : ret.end,
+            allDay : ret.allDay,
             backgroundColor: ret.bgColor,
         };
         return retJson;

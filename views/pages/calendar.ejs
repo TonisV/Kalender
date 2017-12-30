@@ -81,11 +81,56 @@
                 </div>
 
             </div>
+            <div class="container-modal">
+                <div class="modal fade show" id="change-event-modal" tabindex="-1" role="dialog" aria-labelledby="change-event-modal" style="display: none;">
+                    <div class="modal-dialog modal-primary" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" id="change-event-color">
+                                <h4 class="modal-title"><i class="icon-event"></i> Muuda sündmust</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-1">Vali sündmusele uus värv</p>
+                                <ul class="fc-color-picker" id="change-color-chooser">
+                                    <li><a class="text-aqua" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-blue" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-light-blue" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-teal" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-yellow" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-orange" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-green" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-lime" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-red" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-purple" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-fuchsia" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-muted" href="#"><i class="fa fa-square"></i></a></li>
+                                    <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
+                                </ul>
+                                <div class="form-group">
+                                    <div class="input-group pt-2">
+                                        <span class="input-group-addon">Muuda kirjeldust</span>
+                                        <input type="text" id="change-event-desc" name="change-event-desc" class="form-control" title="Kirjeldus">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" id="delete"><i class="fa fa-trash"></i> Kustuta sündmus</button>
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> Loobu</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" id="save"><i class="fa fa-floppy-o"></i> Salvesta</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /.conainer-fluid -->
     </main>
 
 </div>
+
+<div id="message-box"></div>
 
 <footer class="app-footer">
     <span class="ml-auto">Minu Ettevõte 2017</span>

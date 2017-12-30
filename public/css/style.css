@@ -7741,7 +7741,7 @@ base-chart.chart {
     background: #8cc63f; }
 
 .modal-primary .modal-content {
-    border-color: #20a8d8; }
+    border-color: transparent; }
 
 .modal-primary .modal-header {
     color: #fff;

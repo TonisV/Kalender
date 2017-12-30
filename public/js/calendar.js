@@ -54,6 +54,7 @@ $(document).ready(function() {
             copiedEventObject.allDay          = allDay;
             copiedEventObject.backgroundColor = $(this).css('background-color');
 
+            // Save event to db
             saveEvent(copiedEventObject);
 
             // render the event on the calendar
@@ -62,8 +63,56 @@ $(document).ready(function() {
             // Remove the element from the "Draggable Events" list
             $(this).remove();
 
+        },
+        eventDrop: function(event) {
+            updateEvent(event);// After event drop update event data
+        },
+        eventResize: function(event) {
+            updateEvent(event);// After event resize update event data
+        },
+        eventClick: function(calEvent) {
+            // Open event change modal
+            $('#change-event-modal').modal('show');
+            // Change modal header same as event background
+            $('#change-event-color').css('background-color',calEvent.backgroundColor);
+            // Color chooser
+            $('#change-color-chooser > li > a').click(function (e) {
+                e.preventDefault();
+                //Save picked color
+                let currColor = $(this).css('color');
+                //Add color effect to modal header
+                $('#change-event-color').css({ 'background-color': currColor });
+            });
+            // Change event description same as event title
+            $('#change-event-desc').val(calEvent.title);
+
+            // Save event data after clicking save button
+            $('#save').click(function (e) {
+                e.preventDefault();
+                // Save new title to event obj
+                calEvent.title = $('#change-event-desc').val();
+                // Save new event background to event obj
+                calEvent.backgroundColor = $('#change-event-color').css('background-color');
+                // Save new event to db
+                addEvent(calEvent);
+                // Update event obj to show current values
+                $('#calendar').fullCalendar( 'updateEvent', calEvent );
+                // Remove a previously-attached event handler from the elements
+                $('#save').unbind();
+            });
+
+            $('#delete').click(function (e) {
+                e.preventDefault();
+                // Delete event from db
+                deleteEvent(calEvent);
+                // Refetch all events
+                $('#calendar').fullCalendar('refetchEvents');
+                // Remove a previously-attached event handler from the elements
+                $('#delete').unbind();
+            });
         }
     });
+
 
     /* ADDING EVENTS */
     let currColor = '#3c8dbc';//Blue by default
@@ -98,24 +147,48 @@ $(document).ready(function() {
         $('#new-event').val('');
     });
 
-    function saveEvent(event){
+
+    function addEvent(event){
         $.post(
             'calendar/add',
             {
                 title   : event.title,
-                start   : event.start.toISOString(),
+                start   : (event.start._d).toJSON(),
                 bgColor : event.backgroundColor
             }
-        );
+        ).done(function() {
+            messageBox('success', 'Uus sünmdus kalendrisse lisatud :)');
+        });
     }
 
-    function updateEvent() {
-
+    function updateEvent(event) {
+        if(!event.end ) {
+            event.end = event.start;
+        }
+        $.post(
+            'calendar/update',
+            {
+                id      : event.id,
+                title   : event.title,
+                start   : (event.start._d).toJSON(),
+                end     : (event.end._d).toJSON(),
+                allDay  : event.allDay,
+                bgColor : event.backgroundColor
+            }
+        ).done(function() {
+            messageBox('success', 'Sündmus uuendatud :)');
+        });
     }
 
-    function deleteEvent() {
-
+    function deleteEvent(event) {
+        $.post(
+            'calendar/delete',
+            {
+                id : event.id,
+            }
+        ).done(function() {
+            messageBox('alert', 'Sündmus kustutatud');
+        });
     }
-
 
 });

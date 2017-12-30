@@ -1,13 +1,10 @@
 const express    = require('express');
 const bodyParser = require('body-parser');
 const router     = express.Router();
-
-const User  = require('../models/user');
 const Event = require('../models/event');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
-
 
 // Main Calendar page
 router.get('/', ensureAuthenticated, (req, res) => {
@@ -28,49 +25,73 @@ router.get('/events', ensureAuthenticated, (req, res) => {
 // Add event
 router.post('/add', ensureAuthenticated, (req, res) => {
 
-    let title   = req.body.title;
-    let start   = req.body.start;
-    let bgColor = req.body.bgColor;
-
     let newEvent = new Event({
-        title   : title,
-        start   : new Date(start),
-        end     : new Date(start),
+        title   : req.body.title,
+        start   : req.body.start,
+        end     : req.body.start,
         allDay  : true,
-        bgColor : bgColor,
+        bgColor : req.body.bgColor,
         owner   : req.user._id
     });
 
-    newEvent.save(function(err) {
-        if(err) {
-            console.log(err);
-            res.json('error');
-        }
-        res.json('success');
-    })
-
+    if(!newEvent.title) {
+        console.log('Title not given');
+        res.json('failed');
+    }else {
+        newEvent.save(function (err) {
+            if (err) {
+                console.log(err);
+            }
+            res.json('success');
+        });
+    }
 });
 
-/*
 // Update event
-router.get('/update', ensureAuthenticated, (req, res) => {
-    let title   = title;
-    let start   = start;
-    let end     = end;
+router.post('/update', ensureAuthenticated, (req, res) => {
 
-    let newEvent = new Event({
-        title   : title,
-        start   : start,
-        end     : end,
-    });
+    let event = {
+        title   : req.body.title,
+        start   : req.body.start,
+        end     : req.body.end,
+        allDay  : req.body.allDay,
+        bgColor : req.body.bgColor,
+    };
+
+    let query = {_id: req.body.id};
+
+    if(!query._id) {
+        console.log('ID not given');
+        res.json('failed');
+    }else{
+        Event.update(query, event, (err) => {
+            if(err) {
+                console.log(err);
+            }else{
+                res.json('success');
+            }
+        });
+    }
 
 });
 
 // Delete event
-router.get('/delete', ensureAuthenticated, (req, res) => {
-    let id = id;
+router.post('/delete', ensureAuthenticated, (req, res) => {
+
+    let query = {_id:req.body.id};
+
+    if(!query._id) {
+        console.log('ID not given');
+        res.json('failed');
+    }else{
+        Event.remove(query, function (err) {
+            if(err) {
+                console.log(err);
+            }
+            res.json('success');
+        });
+    }
 });
-*/
 
 // Check if it's a logged-in user
 function ensureAuthenticated(req, res, next) {
