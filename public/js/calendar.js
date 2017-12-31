@@ -47,7 +47,6 @@ $(document).ready(function() {
 
             // we need to copy it, so that multiple events don't have a reference to the same object
             let copiedEventObject = $.extend({}, originalEventObject);
-            console.log(copiedEventObject);
 
             // assign it the date that was reported
             copiedEventObject.start           = date;
@@ -82,8 +81,10 @@ $(document).ready(function() {
             // Change event description same as event title
             $('#change-event-desc').val(calEvent.title);
 
+            let $saveBtn = $('#save');
+            $saveBtn.unbind();// Remove a previously-attached event handler from the elements
             // Save event data after clicking save button
-            $('#save').click(function (e) {
+            $saveBtn.click(function (e) {
                 e.preventDefault();
                 // Save new title to event obj
                 calEvent.title = $('#change-event-desc').val();
@@ -93,24 +94,19 @@ $(document).ready(function() {
                 if(updateEvent(calEvent)){
                     // Update event obj to show current values
                     $('#calendar').fullCalendar( 'updateEvent', calEvent );
-                    // Remove a previously-attached event handler from the elements
                 }
-                $('#save').unbind();
-                calEvent = '';
             });
 
-            $('#delete').click(function (e) {
+            let $deleteBtn = $('#delete');
+            $deleteBtn.unbind();// Remove a previously-attached event handler from the elements
+            // Delete event after clicking delete button
+            $deleteBtn.click(function (e) {
                 e.preventDefault();
                 // Delete event from db
-                console.log(calEvent);
-
                 if(deleteEvent(calEvent)){
                     // Refetch all events
                     $('#calendar').fullCalendar('refetchEvents');
-                    // Remove a previously-attached event handler from the elements
-                    $('#delete').unbind();
                 }
-                $('#delete').unbind();
             });
         }
     });

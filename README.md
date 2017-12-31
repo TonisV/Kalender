@@ -11,7 +11,8 @@ Audentitud kasutajad saavad kalendris teha järgmisi muudatusi.
 
 **Paigaldamine ja käivitamine**
 
+    cd Kalender
     npm install
     node server
 
-   Sisse logimiseks loo uus konto rakenduses vajutades lingile "Loo see siin"
+   Sisse logimiseks pead looma uue konto vajutades lingile "Loo see siin" logi sisse vaates.
