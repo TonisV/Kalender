@@ -16,3 +16,5 @@ Audentitud kasutajad saavad kalendris teha järgmisi muudatusi.
     node server
 
    Sisse logimiseks pead looma uue konto vajutades lingile "Loo see siin" logi sisse vaates.
+   
+   Rakenduse link http://localhost:3005
