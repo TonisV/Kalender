@@ -15,6 +15,7 @@ Audentitud kasutajad saavad kalendris teha järgmisi muudatusi.
     npm install
     node server
 
+   Rakenduse link http://localhost:3005
    Sisse logimiseks pead looma uue konto vajutades lingile "Loo see siin" logi sisse vaates.
    
-   Rakenduse link http://localhost:3005
+   
