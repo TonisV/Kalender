@@ -53,16 +53,12 @@ $(document).ready(function() {
             copiedEventObject.start           = date;
             copiedEventObject.allDay          = allDay;
             copiedEventObject.backgroundColor = $(this).css('background-color');
-
             // Save event to db
             addEvent(copiedEventObject);
-
-            // render the event on the calendar
-            // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+            // Fetch all events because we need db id's for every event
+            $('#calendar').fullCalendar('refetchEvents');
             // Remove the element from the "Draggable Events" list
             $(this).remove();
-
         },
         eventDrop: function(event) {
             updateEvent(event);// After event drop update event data
@@ -93,28 +89,34 @@ $(document).ready(function() {
                 calEvent.title = $('#change-event-desc').val();
                 // Save new event background to event obj
                 calEvent.backgroundColor = $('#change-event-color').css('background-color');
-                // Save new event to db
-                updateEvent(calEvent);
-                // Update event obj to show current values
-                $('#calendar').fullCalendar( 'updateEvent', calEvent );
-                // Remove a previously-attached event handler from the elements
+                // Update event data from db
+                if(updateEvent(calEvent)){
+                    // Update event obj to show current values
+                    $('#calendar').fullCalendar( 'updateEvent', calEvent );
+                    // Remove a previously-attached event handler from the elements
+                }
                 $('#save').unbind();
+                calEvent = '';
             });
 
             $('#delete').click(function (e) {
                 e.preventDefault();
                 // Delete event from db
-                deleteEvent(calEvent);
-                // Refetch all events
-                $('#calendar').fullCalendar('refetchEvents');
-                // Remove a previously-attached event handler from the elements
+                console.log(calEvent);
+
+                if(deleteEvent(calEvent)){
+                    // Refetch all events
+                    $('#calendar').fullCalendar('refetchEvents');
+                    // Remove a previously-attached event handler from the elements
+                    $('#delete').unbind();
+                }
                 $('#delete').unbind();
             });
         }
     });
 
 
-    /* ADDING EVENTS */
+    /* ADDING NEW EVENTS */
     let currColor = '#3c8dbc';//Blue by default
     $('#color-chooser > li > a').click(function (e) {
         e.preventDefault();
@@ -157,7 +159,7 @@ $(document).ready(function() {
                 bgColor : event.backgroundColor
             }
         ).done(function() {
-            messageBox('success', 'Uus sünmdus kalendrisse lisatud :)');
+            messageBox('success', 'Uus sündmus kalendrisse lisatud :)');
         });
     }
 
@@ -178,6 +180,7 @@ $(document).ready(function() {
         ).done(function() {
             messageBox('success', 'Sündmus uuendatud :)');
         });
+        return true;
     }
 
     function deleteEvent(event) {
@@ -189,6 +192,7 @@ $(document).ready(function() {
         ).done(function() {
             messageBox('alert', 'Sündmus kustutatud');
         });
+        return true;
     }
 
 });
