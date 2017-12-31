@@ -11,6 +11,7 @@ Audentitud kasutajad saavad kalendris teha järgmisi muudatusi.
 
 **Paigaldamine ja käivitamine**
 
+    git clone https://github.com/TonisV/Kalender.git
     cd Kalender
     npm install
     node server
