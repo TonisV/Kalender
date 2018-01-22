@@ -11,8 +11,11 @@ Audentitud kasutajad saavad kalendris teha järgmisi muudatusi.
 
 **Paigaldamine ja käivitamine**
 
+    git clone https://github.com/TonisV/Kalender.git
     cd Kalender
     npm install
     node server
 
+   Rakenduse link http://localhost:3005
+   
    Sisse logimiseks pead looma uue konto vajutades lingile "Loo see siin" logi sisse vaates.
