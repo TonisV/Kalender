@@ -40,29 +40,38 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
     let username  = req.body.username;
     let password  = req.body.password;
+    let password2  = req.body.password2;
 
-    let newUser = new User({
-        username: username,
-        password: password
-    });
+    if (password === password2) {
 
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(newUser.password, salt, function(err, hash) {
-            if(err) {
-                console.log(err);
-                return res.redirect('/register');
-            }
+        let newUser = new User({
+            username: username,
+            password: password
+        });
 
-            newUser.password = hash;
-            newUser.save(function(err) {
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(newUser.password, salt, function(err, hash) {
                 if(err) {
                     console.log(err);
                     return res.redirect('/register');
                 }
-                return res.redirect('/login');
-            })
+
+                newUser.password = hash;
+                newUser.save(function(err) {
+                    if(err) {
+                        console.log(err);
+                        return res.redirect('/register');
+                    }
+                    return res.redirect('/login');
+                })
+            });
         });
-    });
+    } else {
+        req.flash('alert', 'Salasõnad peavad omavahel kattuma');
+        return res.redirect('/register');
+    }
+
+
 });
 
 module.exports = router;
